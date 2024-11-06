@@ -1,4 +1,4 @@
-# User Stories / Feature List
+# Feature List
 
 ## Login / Sign Up
 - Implement a login/sign-up form for user authentication.
