@@ -406,7 +406,7 @@ Searches for stocks based on a partial or full ticker symbol or company name.
 - **Require Authentication**: true
 - **Request**:
   - **Method**: `GET`
-  - **Route**: `/api/stocks/search`
+  - **Route**: `/api/stocks/search?input=<search string goes here>`
   - **Query Parameters**:
     - `query`: String (required, partial or full match of ticker or company name)
 
