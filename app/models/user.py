@@ -2,7 +2,7 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .db import SCHEMA, db, environment
-from .likes import likes
+# from .likes import likes
 
 
 class User(db.Model, UserMixin):
@@ -15,10 +15,11 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    cash_balance = db.Column(db.Float(precision=2), default=0.00)
 
     # Related data
-    tweets = db.relationship("Tweet", back_populates="author")
-    liked_tweets = db.relationship("Tweet", back_populates="liked_by", secondary=likes)
+    # tweets = db.relationship("Tweet", back_populates="author")
+    # liked_tweets = db.relationship("Tweet", back_populates="liked_by", secondary=likes)
 
     @property
     def password(self):
@@ -36,7 +37,7 @@ class User(db.Model, UserMixin):
 
     def to_dict(self):
         return {
-            **self.to_dict_basic(),
-            "Tweets": [tweet.to_dict_basic() for tweet in self.tweets],
-            "LikedTweets": [tweet.to_dict_basic() for tweet in self.liked_tweets],
+            **self.to_dict_basic()
+            # "Tweets": [tweet.to_dict_basic() for tweet in self.tweets],
+            # "LikedTweets": [tweet.to_dict_basic() for tweet in self.liked_tweets],
         }

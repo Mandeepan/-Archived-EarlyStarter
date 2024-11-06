@@ -2,7 +2,7 @@ from flask.cli import AppGroup
 
 from app.models.db import SCHEMA, db, environment
 
-from .tweets import seed_tweets, undo_tweets
+from .stocks import seed_stocks, undo_stocks
 from .users import seed_users, undo_users
 
 # Creates a seed group to hold our commands
@@ -14,25 +14,25 @@ seed_commands = AppGroup("seed")
 @seed_commands.command("all")
 def seed():
     # ! Undo all seeds
-    undo_tweets()
+    undo_stocks()
     undo_users()
 
     # ? Apply all seeds
     seed_users()
-    seed_tweets()
-    # if environment == "production":
-    #     # Before seeding in production, you want to run the seed undo
-    #     # command, which will  truncate all tables prefixed with
-    #     # the schema name (see comment in users.py undo_users function).
-    #     # Make sure to add all your other model's undo functions below
-    #     undo_tweets()
-    #     undo_users()
-    # seed_users()
-    # seed_tweets()
+    seed_stocks()
+    if environment == "production":
+        # Before seeding in production, you want to run the seed undo
+        # command, which will  truncate all tables prefixed with
+        # the schema name (see comment in users.py undo_users function).
+        # Make sure to add all your other model's undo functions below
+        undo_stocks()
+        undo_users()
+        seed_users()
+        seed_stocks()
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command("undo")
 def undo():
-    undo_tweets()
+    # undo_tweets()
     undo_users()
